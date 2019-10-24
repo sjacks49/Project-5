@@ -1,5 +1,6 @@
 package com.example.sj_dm_project5;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,10 +13,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String APP_TAG = "Monkas";
+    static String TAG_MAIN = "Monkas";
+    private DatabaseMan manager;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +32,40 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        manager = new DatabaseMan(this);
+        scrollView = findViewById(R.id.mainScroll);
+        updateView();
     }
 
+    protected void onStart() {
+        super.onStart();
+        updateView();
+    }
+
+    private void updateView() {
+        ArrayList<Job> jobs = manager.selectAll();
+        int numJobs = jobs.size();
+
+        if (numJobs > 0){
+            scrollView.removeAllViews();
+
+            LinearLayout LabelColumn = new LinearLayout(this);
+            LabelColumn.setOrientation(LinearLayout.VERTICAL);
+
+            TextView[] labels = new TextView[numJobs];
+
+            for (int i = 0; i < numJobs; i++){
+                String text = jobs.get(i).toString();
+
+                labels[i] = new TextView(this);
+                labels[i].setText(text);
+                labels[i].setTextSize(24);
+                labels[i].setPadding(10,10,10,10);
+                LabelColumn.addView(labels[i]);
+            }
+            scrollView.addView(LabelColumn);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -50,11 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            Log.w(APP_TAG,"action add");
+            Log.w(TAG_MAIN,"action add");
+
+            Intent addIntent = new Intent(this, AddActivity.class);
+            this.startActivity(addIntent);
+
             return true;
         }
         if (id == R.id.action_delete) {
-            Log.w(APP_TAG, "action delete");
+            Log.w(TAG_MAIN, "action delete");
+
+            Intent deleteIntent = new Intent(this, DeleteActivity.class);
+            this.startActivity(deleteIntent);
+
             return true;
         }
 

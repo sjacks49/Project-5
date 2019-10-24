@@ -6,7 +6,7 @@ public class Job {
     private String position;
     private double salary;
 
-    public Job (int newID, String newPosition, double newSalary){
+    public Job (int newID, String newPosition, double newSalary) {
         setID(newID);
         setPosition(newPosition);
         setSalary(newSalary);
@@ -37,7 +37,7 @@ public class Job {
     }
 
     public String toString(){
-        return ID + "; " + position + "; " + salary;
+        return ID + ": " + position + "; " + salary;
     }
 
 }
