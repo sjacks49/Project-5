@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SJ_DM_Project5</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+    <string name="action_delete">Delete</string>
 </resources>

@@ -8,11 +8,14 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+
+    static String APP_TAG = "Monkas";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            Log.w(APP_TAG,"action add");
+            return true;
+        }
+        if (id == R.id.action_delete) {
+            Log.w(APP_TAG, "action delete");
             return true;
         }
 
