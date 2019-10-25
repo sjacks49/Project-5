@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < jobs.size(); i++){
             String text = jobs.get(i).toString();
-
             labels[i] = new TextView(this);
             labels[i].setText(text);
             labels[i].setTextSize(24);
