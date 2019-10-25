@@ -52,7 +52,6 @@ public class DatabaseMan extends SQLiteOpenHelper {
                 NAME, ID, delID);
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.execSQL(sqlDeleteStr);
         db.close();
     }
@@ -68,8 +67,7 @@ public class DatabaseMan extends SQLiteOpenHelper {
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
             String position = cursor.getString(1);
-            double salary = cursor.getDouble(3);
-
+            double salary = cursor.getDouble(2);
             JobList.add(new Job(id, position, salary));
         }
         db.close();

@@ -37,7 +37,7 @@ public class Job {
     }
 
     public String toString(){
-        return ID + ": " + position + "; " + salary;
+        return ID + ": " + position + "; $" + salary;
     }
 
 }

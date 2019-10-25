@@ -44,27 +44,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView() {
         ArrayList<Job> jobs = manager.selectAll();
-        int numJobs = jobs.size();
 
-        if (numJobs > 0){
-            scrollView.removeAllViews();
+        scrollView.removeAllViews();
 
-            LinearLayout LabelColumn = new LinearLayout(this);
-            LabelColumn.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout LabelColumn = new LinearLayout(this);
+        LabelColumn.setOrientation(LinearLayout.VERTICAL);
 
-            TextView[] labels = new TextView[numJobs];
+        TextView[] labels = new TextView[jobs.size()];
 
-            for (int i = 0; i < numJobs; i++){
-                String text = jobs.get(i).toString();
+        for (int i = 0; i < jobs.size(); i++){
+            String text = jobs.get(i).toString();
 
-                labels[i] = new TextView(this);
-                labels[i].setText(text);
-                labels[i].setTextSize(24);
-                labels[i].setPadding(10,10,10,10);
-                LabelColumn.addView(labels[i]);
-            }
-            scrollView.addView(LabelColumn);
+            labels[i] = new TextView(this);
+            labels[i].setText(text);
+            labels[i].setTextSize(24);
+            labels[i].setPadding(10,10,10,10);
+            LabelColumn.addView(labels[i]);
         }
+        scrollView.addView(LabelColumn);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
