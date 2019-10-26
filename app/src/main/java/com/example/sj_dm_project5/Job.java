@@ -40,7 +40,7 @@ public class Job {
 
     public String toString(){
         //return ID + ": " + position + "; $" + salary;
-        return String.format(Locale.US,"%d: %s; $%.2f", ID, position, salary);
+        return String.format(Locale.US,"%d: %s; $%,.2f", ID, position, salary);
     }
 
 }
