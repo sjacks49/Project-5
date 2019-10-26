@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class DeleteActivity extends AppCompatActivity {
     private DatabaseMan dbManager;
+    private int CID;
 
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
@@ -50,25 +51,43 @@ public class DeleteActivity extends AppCompatActivity {
         setContentView( layout );
     }
 
+    private class RadioButtonHandler implements RadioGroup.OnCheckedChangeListener {
+
+        static final String DELETE = "Delete";
+
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            Log.w(DELETE, "deleting " + checkedId);
+
+            CID = checkedId;
+            deleteDialog();
+        }
+    }
+
     public void deleteDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Delete Confirmation");
         alert.setMessage("Delete Item?");
+
         DeleteDialog delete = new DeleteDialog();
+
         alert.setPositiveButton("Yes", delete);
         alert.setNegativeButton("No", delete);
+
         alert.show();
     }
 
     private class DeleteDialog implements AlertDialog.OnClickListener {
-        @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
+
                 case DialogInterface.BUTTON_POSITIVE:
                     //Yes Button Clicked
-                    //dbManager.deleteByID();
+                    dbManager.deleteByID(CID);
+
                     Toast.makeText(DeleteActivity.this, "Job deleted",
                             Toast.LENGTH_SHORT).show();
+                    updateView();
+
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -76,25 +95,6 @@ public class DeleteActivity extends AppCompatActivity {
                     dialog.dismiss();
                     break;
             }
-        }
-    }
-
-
-    private class RadioButtonHandler
-            implements RadioGroup.OnCheckedChangeListener {
-
-        static final String DELETE = "Delete";
-
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-            Log.w(DELETE, "deleting "+checkedId);
-
-            dbManager.deleteByID(checkedId);
-
-            Toast.makeText(DeleteActivity.this, "Job deleted",
-                    Toast.LENGTH_SHORT).show();
-            // update screen
-            updateView();
         }
     }
 }
